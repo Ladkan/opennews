@@ -1,0 +1,16 @@
+footer{
+    padding-block: 3rem;
+    h2{
+        font-size: 1.75rem;
+        line-height: 2.25rem;
+        font-weight: 600;
+        padding-block: calc(.25rem*4);
+    }
+    .bottom{
+        border-top: 1px solid #E5E7EB;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: calc(.25rem*4);
+    }
+}
