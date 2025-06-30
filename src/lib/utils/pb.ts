@@ -32,11 +32,28 @@ export async function _getTags(){
 
 export async function _getPublished() {
     const res = await pb.collection('articles').getFullList({
-        filter: pb.filter("status = published"),
-        sort: '-created'
+        filter: pb.filter("status = {:id}", {id:"published"}),
+        sort: 'published'
     })
     return res
 }
+
+export async function _getPublishedByTag(tag:string){
+        const res = await pb.collection('articles').getFullList({
+        filter: pb.filter("status = {:id} && tags = {:tag}", {id:"published", tag:tag}),
+        sort: 'published'
+    })
+    return res
+}
+
+export async function _getPublishedBySearch(search:string){
+        const res = await pb.collection('articles').getFullList({
+        filter: pb.filter("status = {:id} && title ~ {:search}", {id:"published", search:search}),
+        sort: 'published'
+    })
+    return res
+}
+
 
 export async function _getLatest(){
     const res = await pb.collection('articles_latest').getFullList()
@@ -45,5 +62,10 @@ export async function _getLatest(){
 
 export async function _getTagStats(){
     const res = await pb.collection('tags_stats').getFullList()
+    return res
+}
+
+export async function _getUserName(id:string){
+    const res = await pb.collection('user_names').getOne(id)
     return res
 }

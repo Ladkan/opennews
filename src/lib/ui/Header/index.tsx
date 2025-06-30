@@ -44,13 +44,13 @@ function Header(){
                         <nav>
                             <NavLink to="/" >Home</NavLink>
                             {data?.map((tag:any) => (
-                                <NavLink  key={tag.id} to={"/articles/" + tag.name}> {tag.name} </NavLink>
+                                <NavLink  key={tag.id} to={"/articles/tag/" + tag.name}> {tag.name} </NavLink>
                             ))}
                         </nav>
                     </div>
                     <div className="search">
                         <input placeholder='Search news...' type="text" name='search' onChange={(e) => setSearch(e.target.value)} />
-                        <Link to={"/articles/s/"+search} onClick={() => setSearch('')} ><i className='bx  bx-search-big'  ></i> </Link>
+                        <Link to={"/articles/search?q="+search} onClick={() => setSearch('')} ><i className='bx  bx-search-big'  ></i> </Link>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import Articles from "./pages/Articles"
 import Create from "./pages/Create"
 import Update from "./pages/Update"
 import './lib/scss/global.scss'
+import ArticlesTag from "./pages/ArticlesTag"
 
 
 function App() {
@@ -33,8 +34,7 @@ function App() {
               <Route element={<Err_404 />} path="*" />
               <Route element={<Home />} path="/" />
               <Route element={<Articles />} path="/articles" />
-              <Route element={<Articles />} path="/articles/:id" />
-              <Route element={<Articles />} path="/articles/s/:text" />
+              <Route element={<ArticlesTag />} path="/articles/tag/:id" />
               <Route element={<ProtectedRoute />} >
                 <Route element={<Create />} path="/create" />
                 <Route element={<Update />} path="/update" />
