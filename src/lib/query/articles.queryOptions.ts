@@ -1,6 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
-import { _GetArticle, _getLatest, _getPublished, _getPublishedByTag } from "../utils/pb";
+import { _GetArticle, _GetArticlesUser, _getLatest, _getPublished, _getPublishedByTag } from "../utils/pb";
 
+//Get all published articles
 export function getPublishedArticlesQueryOptions(){
     return queryOptions({
         queryKey:["articles_published"],
@@ -10,6 +11,7 @@ export function getPublishedArticlesQueryOptions(){
     })
 }
 
+//Get all published articles by tag
 export function getPublishedArticlesByTagQueryOptions(id:string){
     return queryOptions({
         queryKey:["articles_published_tag"],
@@ -19,6 +21,7 @@ export function getPublishedArticlesByTagQueryOptions(id:string){
     })
 }
 
+//Get latest published articles
 export function getLatestPublishedQueryOptions(){
     return queryOptions({
         queryKey:["articles_latest"],
@@ -28,11 +31,22 @@ export function getLatestPublishedQueryOptions(){
     })
 }
 
+//Get article
 export function getArticleQueryOptions(id:string){
     return queryOptions({
         queryKey:["article_"+id],
         queryFn: () => _GetArticle(id),
         staleTime: 6000,
         placeholderData: (prev) => prev,
+    })
+}
+
+//Get all articles by user
+export function getArticlesByUserQueryOptions(id:string){
+    return queryOptions({
+        queryKey:["articles_user"],
+        queryFn: () => _GetArticlesUser(id),
+        staleTime: 6000,
+        placeholderData: (prev) => prev
     })
 }

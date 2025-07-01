@@ -74,6 +74,16 @@ export async function _GetArticle(id:string){
     return res
 }
 
+//Get all articles by user id
+export async function _GetArticlesUser(id:string){
+    const res = await pb.collection('articles').getFullList({
+        filter: pb.filter("author = {:id}", {id:id}),
+        sort: '-created',
+        expand: 'tags'
+    })
+    return res
+}
+
 //Create Article
 export async function _CreateArticle(title:string,cover:string,status:string,tag:string,content:any) {
     const data = {
@@ -103,6 +113,22 @@ export async function _UpdateArticle(id:string,title:string,cover:string,status:
     return res
 }
 
+//Delte article
+export async function _DeleteArticle(id:string){
+    const res = await pb.collection('articles').delete(id)
+    return res
+}
+
+//Set article status
+export async function _SetArticleStatus(id:string, status:string) {
+    const data = {
+        "status": status
+    }
+
+    const res = await pb.collection('articles').update(id, data)
+    return res
+}
+
 //Get Article Comments
 export async function _GetArticleComments(id:string){
     const res = await pb.collection('comments').getFullList({
@@ -127,14 +153,4 @@ export async function _CreateComment(message: string, article:string) {
 
     return res
 
-}
-
-//Admin change article status
-export async function _AdminSetArticleStatus(id:string, status:string) {
-    const data = {
-        "status": status
-    }
-
-    const res = await pb.collection('articles').update(id, data)
-    return res
 }

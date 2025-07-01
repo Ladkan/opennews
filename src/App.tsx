@@ -21,6 +21,7 @@ import ProtectedRoute from "./lib/utils/ProtectedRoute"
 import AdminRoute from "./lib/utils/AdminRoute"
 import Article from "./pages/Article"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import User from "./pages/User"
 
 function App() {
   
@@ -46,6 +47,7 @@ function App() {
               <Route element={<ArticlesTag />} path="/articles/:id" />
               <Route element={<Article />} path="/article/:id" />
               <Route element={<ProtectedRoute />} >
+                <Route element={<User />} path="/user" />
                 <Route element={<Create />} path="/create" />
                 <Route element={<Update />} path="/update/:id" />
               </Route>

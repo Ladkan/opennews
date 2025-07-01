@@ -33,7 +33,7 @@ function Header(){
                         {IsLoggedIn ? <>
                             {isStaff() ? <Button redirect="/admin" variant="ghost" size="sm" >Admin</Button> : null }
                             <Button redirect="/create" variant="ghost" size="sm" >Create Article</Button>
-                            <Button redirect={"/user/"+pb.authStore.record.id} variant="ghost" size="sm" >Profile</Button>
+                            <Button redirect="/user" variant="ghost" size="sm" >Profile</Button>
                             <Button variant='outline' size="sm" action={handleLogOut} >Log out</Button>
                         </> : <>
                             <Button redirect='/login' size="sm" variant="ghost">Login</Button>

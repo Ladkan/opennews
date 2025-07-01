@@ -22,6 +22,11 @@
             color: black;
         }
     }
+    &.danger{
+        background-color: #dc2626;
+        color: white;
+        border: #dc2626;
+    }
     &.outline{
         border: 1px solid #E5E7EB;
         &:hover{

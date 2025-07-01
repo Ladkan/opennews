@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getArticleQueryOptions } from "../lib/query/articles.queryOptions"
 import { getArticleCommentsQueryOptions } from "../lib/query/comments.queryOptions"
 import '../lib/scss/article.scss'
-import { _CreateComment } from "../lib/utils/pb"
+import { _CreateComment, pb } from "../lib/utils/pb"
 import Button from "../lib/ui/Button"
 import { useState } from "react"
 import Comment from '../lib/ui/Comment'
@@ -21,6 +21,14 @@ function Article(){
         setMessage('')
         if(res)
             queryClient.invalidateQueries({queryKey: ['comments_'+article?.id]})
+    }
+
+    if(article?.status != "published"){
+        return(
+            <div className="container">
+                <h1>Unpublished article</h1>
+            </div>
+        )
     }
 
     return (
@@ -61,11 +69,13 @@ function Article(){
             </div>
             <div className="comments">
                 <h3>Comments ({comments?.length})</h3>
-                <div className="leave_comment">
+                {pb.authStore.isValid ? (
+                    <div className="leave_comment">
                     <h3>Leave a comment</h3>
                     <textarea name="comment" id="" value={message} onChange={(e) => setMessage(e.target.value)} ></textarea>
                     <Button size="md" variant="outline" action={handleSendComment} >Post comment</Button>
                 </div>
+                ) : null}
                 <div className="comments_wrapper">
                         {comments?.map((item:any) => (
                             <Comment user={item.expand.user} created={item.created} content={item.content} />
