@@ -33,7 +33,7 @@ export async function _getTags(){
 export async function _getPublished() {
     const res = await pb.collection('articles').getFullList({
         filter: pb.filter("status = {:id}", {id:"published"}),
-        sort: 'published'
+        sort: '-published'
     })
     return res
 }
@@ -41,15 +41,7 @@ export async function _getPublished() {
 export async function _getPublishedByTag(tag:string){
         const res = await pb.collection('articles').getFullList({
         filter: pb.filter("status = {:id} && tags = {:tag}", {id:"published", tag:tag}),
-        sort: 'published'
-    })
-    return res
-}
-
-export async function _getPublishedBySearch(search:string){
-        const res = await pb.collection('articles').getFullList({
-        filter: pb.filter("status = {:id} && title ~ {:search}", {id:"published", search:search}),
-        sort: 'published'
+        sort: '-published'
     })
     return res
 }
@@ -67,5 +59,19 @@ export async function _getTagStats(){
 
 export async function _getUserName(id:string){
     const res = await pb.collection('user_names').getOne(id)
+    return res
+}
+
+export async function _CreateArticle(title:string,cover:string,status:string,tag:string,content:any) {
+    const data = {
+        "author": pb.authStore.model?.id,
+        "title": title,
+        "cover": cover,
+        "content": content,
+        "status": status,
+        "tags":tag
+    }
+
+    const res = await pb.collection('articles').create(data)
     return res
 }

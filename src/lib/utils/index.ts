@@ -1,3 +1,5 @@
+import { pb } from "./pb"
+
 export function FirstToUpper(text:string){
     return String(text).charAt(0).toUpperCase() + String(text).slice(1)
 }
@@ -23,4 +25,13 @@ export function isUpdated(created:string,updated:string){
         return true
 
     return false
+}
+
+export function isStaff(){
+    if(pb.authStore.model.role === "admin" || pb.authStore.model.role === 'moderator'){
+        return true
+    } 
+
+    return false
+
 }

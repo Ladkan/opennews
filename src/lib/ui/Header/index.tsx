@@ -4,6 +4,7 @@ import './style.scss'
 import { useState } from 'react'
 import Button from '../Button'
 import { useTagsContext } from '../../context/TagsContext'
+import { isStaff } from '../../utils'
 
 function Header(){
     const {data} = useTagsContext()
@@ -29,6 +30,8 @@ function Header(){
                     </div>
                     <div className="right">
                         {IsLoggedIn ? <>
+                            {isStaff() ? <Button redirect="/admin" variant="ghost" size="sm" >Admin</Button> : null }
+                            <Button redirect="/create" variant="ghost" size="sm" >Create Article</Button>
                             <Button redirect={"/user/"+pb.authStore.record.id} variant="ghost" size="sm" >Profile</Button>
                             <Button variant='outline' size="sm" action={handleLogOut} >Log out</Button>
                         </> : <>
@@ -44,7 +47,7 @@ function Header(){
                         <nav>
                             <NavLink to="/" >Home</NavLink>
                             {data?.map((tag:any) => (
-                                <NavLink  key={tag.id} to={"/articles/tag/" + tag.name}> {tag.name} </NavLink>
+                                <NavLink  key={tag.id} to={"/articles/" + tag.name}> {tag.name} </NavLink>
                             ))}
                         </nav>
                     </div>

@@ -1,0 +1,58 @@
+/// <reference path="../pb_data/types.d.ts" />
+migrate((app) => {
+  const collection = app.findCollectionByNameOrId("pbc_3886814502")
+
+  // update collection data
+  unmarshal({
+    "viewQuery": "SELECT tags.id as id, tags.name as name, COUNT(articles.tags) as count FROM tags INNER JOIN articles on tags.id = articles.tags GROUP BY tags.id"
+  }, collection)
+
+  // remove field
+  collection.fields.removeById("_clone_4tu7")
+
+  // add field
+  collection.fields.addAt(1, new Field({
+    "autogeneratePattern": "",
+    "hidden": false,
+    "id": "_clone_fBlH",
+    "max": 0,
+    "min": 0,
+    "name": "name",
+    "pattern": "",
+    "presentable": false,
+    "primaryKey": false,
+    "required": false,
+    "system": false,
+    "type": "text"
+  }))
+
+  return app.save(collection)
+}, (app) => {
+  const collection = app.findCollectionByNameOrId("pbc_3886814502")
+
+  // update collection data
+  unmarshal({
+    "viewQuery": "SELECT tags.id as id, tags.name as name, COUNT(articles.tags) as count FROM tags INNER JOIN articles on tags.id = articles.tags WHERE articles.status = \"published\""
+  }, collection)
+
+  // add field
+  collection.fields.addAt(1, new Field({
+    "autogeneratePattern": "",
+    "hidden": false,
+    "id": "_clone_4tu7",
+    "max": 0,
+    "min": 0,
+    "name": "name",
+    "pattern": "",
+    "presentable": false,
+    "primaryKey": false,
+    "required": false,
+    "system": false,
+    "type": "text"
+  }))
+
+  // remove field
+  collection.fields.removeById("_clone_fBlH")
+
+  return app.save(collection)
+})

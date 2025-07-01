@@ -1,0 +1,142 @@
+aside{
+    &.close{
+        width: 0px;
+        & ~ main{
+            left: 0;
+            width: 100%;
+        }
+    }
+    background-color: #18181b;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100%;
+    z-index: 2000;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    transition: all 0.3s ease;
+    .menu-wrapper{
+        display: flex;
+        flex-direction: column;
+        .title{
+            font-size: 24px;
+            font-weight: bold;
+            padding: 1rem;
+        }
+        nav{
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: calc(.25rem*2);
+            a{
+                text-decoration: none;
+                border-radius: calc(.5rem - 2px);
+                padding: calc(.25rem*2);
+                gap: .45rem;
+                align-items: center;
+                display: flex;
+                color: #fafafa;
+                &:hover{
+                    background-color: #27272C;
+                }
+                &.active{
+                    background-color: #27272C;
+                }
+            }
+        }
+    }
+
+    .user-wrapper{
+        display: flex;
+        flex-direction: column;
+        padding: calc(.25rem*2);
+        gap: calc(.25rem*2);
+        .user-content{
+            display: flex;
+            flex-direction: column;
+            gap: .25rem;
+            width: 100%;
+            position: relative;
+            button{
+                color: white;
+                text-align: left;
+                padding: calc(.25rem*2);
+                border-radius: calc(.5rem - 2px);
+                overflow: hidden;
+                gap: calc(.25rem*2);
+                width: 100%;
+                display: flex;
+                align-items: center;
+                height: calc(.25rem*12);
+                outline: none;
+                border: none;
+                background-color: transparent;
+                &:hover{
+                    background-color: #27272C;
+                }
+
+                .name{
+                    line-height: 1.25;
+                    font-size: .875rem;
+                    text-align: left;
+                    flex: 1;
+                    display: grid;
+                    span{
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                }
+                .icon{
+                    font-size: 1.15rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: auto;
+                    flex-shrink: 0;
+                }
+            }
+        }
+        .user-menu{
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: calc(.25rem*2);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            &.close{
+                display: none;
+            }
+
+            a{
+                border-radius: calc(.5rem - 2px);
+                padding: calc(.25rem*2);
+                gap: .45rem;
+                align-items: center;
+                display: flex;
+                &:hover{
+                    background-color: #27272C;
+                }
+                &.active{
+                    background-color: #27272C;
+                } 
+            }
+            button{
+                border-radius: calc(.5rem - 2px);
+                padding: calc(.25rem*2);
+                gap: .45rem;
+                color: white;
+                align-items: center;
+                display: flex;
+                background-color: transparent;
+                outline: none;
+                border: none;
+                &:hover{
+                    background-color: #27272C;
+                } 
+            }
+        }
+    }
+
+}
