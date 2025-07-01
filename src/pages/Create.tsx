@@ -1,14 +1,15 @@
 import { useRef, useState } from "react"
 import BundledEditor from "../lib/components/BundleEditor"
-import { useTagsContext } from "../lib/context/TagsContext"
 import InputGroup from "../lib/ui/InputGroup"
 import '../lib/scss/create.scss'
 import Button from "../lib/ui/Button"
 import { _CreateArticle } from "../lib/utils/pb"
 import { useNavigate } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
+import { getTagsQueryOptions } from "../lib/query/tag.queryOptions"
 
 function Create(){
-    const {data} = useTagsContext()
+    const {data} = useQuery(getTagsQueryOptions())
     const editorRef = useRef(null)
 
     const [title, setTitle] = useState('')

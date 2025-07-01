@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import BundledEditor from "../lib/components/BundleEditor"
-import { useTagsContext } from "../lib/context/TagsContext"
 import InputGroup from "../lib/ui/InputGroup"
 import '../lib/scss/create.scss'
 import Button from "../lib/ui/Button"
@@ -8,10 +7,11 @@ import { _CreateArticle, _UpdateArticle, pb } from "../lib/utils/pb"
 import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { getArticleQueryOptions } from "../lib/query/articles.queryOptions"
+import { getTagsQueryOptions } from "../lib/query/tag.queryOptions"
 
 function Update(){
     const {id} = useParams()
-    const {data} = useTagsContext()
+    const {data} = useQuery(getTagsQueryOptions())
     const editorRef = useRef(null)
     const {data:article} = useQuery(getArticleQueryOptions(id))
     const [title, setTitle] = useState(article?.title)

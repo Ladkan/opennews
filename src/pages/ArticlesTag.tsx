@@ -14,9 +14,7 @@ function ArticlesTag(){
     })
 
     const {data} = useQuery(getTagsQueryOptions())
-    console.log(data)
     const tag = data?.find((i) => i.name === id)
-    console.log(tag)
     const {data:all} = useQuery(getPublishedArticlesByTagQueryOptions(tag?.id))
 
     return(
