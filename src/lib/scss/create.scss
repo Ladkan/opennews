@@ -5,6 +5,7 @@
     gap: calc(.25rem*6);
     .buttons{
         display: flex;
+        align-items: center;
         flex-direction: row-reverse;
         gap: calc(.25rem*4);
     }

@@ -3,7 +3,7 @@ import './style.scss'
 
 function InputGroup(props:any){
     
-    const {name, type, handleChange, placeholder, options} = props
+    const {name, type, handleChange, placeholder, options, value} = props
     
     if(type==="select"){
 
@@ -14,7 +14,7 @@ function InputGroup(props:any){
         return(
             <div className="input-group" >
                 <label htmlFor={name}>{FirstToUpper(name)}</label>
-                <select name={name} id="" onChange={(e) => handleChange(e.target.value)}>
+                <select value={value} name={name} id="" onChange={(e) => handleChange(e.target.value)}>
                     {options?.map((opt) => (
                         <option key={opt.id} value={opt.id} >{FirstToUpper(opt.name)}</option>
                     ))}
@@ -25,7 +25,7 @@ function InputGroup(props:any){
         return(
             <div className="input-group" >
                 <label htmlFor={name}>{FirstToUpper(name)}</label>
-                <input placeholder={placeholder} type={type} name={name} onChange={(e) => handleChange(e.target.value)} />
+                <input value={value} placeholder={placeholder} type={type} name={name} onChange={(e) => handleChange(e.target.value)} />
             </div>
         )
     }

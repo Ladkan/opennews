@@ -14,7 +14,6 @@ function ArticlesTag(){
 
     const {id} = useParams()
     const {data} = useTagsContext()
-    console.log(data)
     const tag = data.find(i => i.name === id)
     const {data:all} = useQuery(getPublishedArticlesByTagQueryOptions(tag.id))
 

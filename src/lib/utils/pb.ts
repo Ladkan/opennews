@@ -75,3 +75,56 @@ export async function _CreateArticle(title:string,cover:string,status:string,tag
     const res = await pb.collection('articles').create(data)
     return res
 }
+
+export async function _UpdateArticle(id:string,title:string,cover:string,status:string,tag:string,content:any) {
+    const data = {
+        "title": title,
+        "cover": cover,
+        "content": content,
+        "status": status,
+        "tags":tag
+    }
+
+    const res = await pb.collection('articles').update(id,data)
+    return res
+}
+
+export async function _AdminSetArticleStatus(id:string, status:string) {
+    const data = {
+        "status": status
+    }
+
+    const res = await pb.collection('articles').update(id, data)
+    return res
+}
+
+export async function _GetArticle(id:string){
+    const res = await pb.collection('articles').getOne(id, {
+        expand: 'author,tags'
+    })
+    return res
+}
+
+export async function _GetArticleComments(id:string){
+    const res = await pb.collection('comments').getFullList({
+        filter: pb.filter("article = {:id}",{id:id}),
+        sort: '-created',
+        expand:'user'
+    })
+
+    return res
+
+}
+
+export async function _CreateComment(message: string, article:string) {
+    const data = {
+        "article": article,
+        "user": pb.authStore.record?.id,
+        "content": message
+    }
+
+    const res = await pb.collection('comments').create(data)
+
+    return res
+
+}
