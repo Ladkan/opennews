@@ -1,9 +1,10 @@
-import { usePublishedContext } from "../lib/context/ArticlesContext"
 import Card from "../lib/ui/Card"
 import '../lib/scss/articles.scss'
+import { useQuery } from "@tanstack/react-query"
+import { getPublishedArticlesQueryOptions } from "../lib/query/articles.queryOptions"
 
 function Articles(){
-    const {all} = usePublishedContext()
+    const {data:all} = useQuery(getPublishedArticlesQueryOptions())
  
     return(
         <section className="articles">
@@ -14,7 +15,7 @@ function Articles(){
                 </div>
                 <div className="articles_cards">
                     {all?.map((article:any) => (
-                        <Card page={true} key={article.id} author={article.author} title={article.title} cover={article.cover} tags={article.tags} published={article.published} id={article.id} />
+                        <Card page={true} key={article.id} data={article} />
                     ))}
                 </div>
             </div>

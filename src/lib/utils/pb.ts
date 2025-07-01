@@ -2,16 +2,17 @@ import PocketBase from "pocketbase"
 export const pb = new PocketBase("http://127.0.0.1:8090/");
 pb.autoCancellation(false)
 
+//Login
 export async function _Login(name:string, passwd: string){
     await pb.collection("users").authWithPassword(name, passwd);
     return pb.authStore.isValid
 }
-
+//Logout
 export async function _LogOut(){
     pb.authStore.clear()
     return pb.authStore.isValid
 }
-
+//Register
 export async function _Register(email:string, password: string,passwordConfirm:string , name: string) {
     const data = {
         "email": email, 
@@ -25,43 +26,55 @@ export async function _Register(email:string, password: string,passwordConfirm:s
     return res
 }
 
+//get tags
 export async function _getTags(){
     const res = await pb.collection('tags').getFullList()
     return res
 }
 
-export async function _getPublished() {
-    const res = await pb.collection('articles').getFullList({
-        filter: pb.filter("status = {:id}", {id:"published"}),
-        sort: '-published'
-    })
-    return res
-}
-
-export async function _getPublishedByTag(tag:string){
-        const res = await pb.collection('articles').getFullList({
-        filter: pb.filter("status = {:id} && tags = {:tag}", {id:"published", tag:tag}),
-        sort: '-published'
-    })
-    return res
-}
-
-
-export async function _getLatest(){
-    const res = await pb.collection('articles_latest').getFullList()
-    return res
-}
-
+//Get tag stats
 export async function _getTagStats(){
     const res = await pb.collection('tags_stats').getFullList()
     return res
 }
 
-export async function _getUserName(id:string){
-    const res = await pb.collection('user_names').getOne(id)
+//Get published articles
+export async function _getPublished() {
+    const res = await pb.collection('articles').getFullList({
+        filter: pb.filter("status = {:id}", {id:"published"}),
+        sort: '-published',
+        expand:'tags,author'
+    })
     return res
 }
 
+//Get published articles by tag
+export async function _getPublishedByTag(tag:string){
+        const res = await pb.collection('articles').getFullList({
+        filter: pb.filter("status = {:id} && tags = {:tag}", {id:"published", tag:tag}),
+        sort: '-published',
+        expand: 'author,tags'
+    })
+    return res
+}
+
+//Get latest articles
+export async function _getLatest(){
+    const res = await pb.collection('articles_latest').getFullList({
+        expand: "tags"
+    })
+    return res
+}
+
+//Get Article by id
+export async function _GetArticle(id:string){
+    const res = await pb.collection('articles').getOne(id, {
+        expand: 'author,tags'
+    })
+    return res
+}
+
+//Create Article
 export async function _CreateArticle(title:string,cover:string,status:string,tag:string,content:any) {
     const data = {
         "author": pb.authStore.model?.id,
@@ -76,6 +89,7 @@ export async function _CreateArticle(title:string,cover:string,status:string,tag
     return res
 }
 
+//Update Article
 export async function _UpdateArticle(id:string,title:string,cover:string,status:string,tag:string,content:any) {
     const data = {
         "title": title,
@@ -89,22 +103,7 @@ export async function _UpdateArticle(id:string,title:string,cover:string,status:
     return res
 }
 
-export async function _AdminSetArticleStatus(id:string, status:string) {
-    const data = {
-        "status": status
-    }
-
-    const res = await pb.collection('articles').update(id, data)
-    return res
-}
-
-export async function _GetArticle(id:string){
-    const res = await pb.collection('articles').getOne(id, {
-        expand: 'author,tags'
-    })
-    return res
-}
-
+//Get Article Comments
 export async function _GetArticleComments(id:string){
     const res = await pb.collection('comments').getFullList({
         filter: pb.filter("article = {:id}",{id:id}),
@@ -116,6 +115,7 @@ export async function _GetArticleComments(id:string){
 
 }
 
+//Create Comment
 export async function _CreateComment(message: string, article:string) {
     const data = {
         "article": article,
@@ -127,4 +127,14 @@ export async function _CreateComment(message: string, article:string) {
 
     return res
 
+}
+
+//Admin change article status
+export async function _AdminSetArticleStatus(id:string, status:string) {
+    const data = {
+        "status": status
+    }
+
+    const res = await pb.collection('articles').update(id, data)
+    return res
 }

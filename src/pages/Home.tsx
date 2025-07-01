@@ -1,13 +1,14 @@
-import { usePublishedContext } from '../lib/context/ArticlesContext'
-import { useTagsContext } from '../lib/context/TagsContext'
+import { useQuery } from '@tanstack/react-query'
 import '../lib/scss/home.scss'
 import Button from '../lib/ui/Button'
 import Card from '../lib/ui/Card'
 import Stat from '../lib/ui/Stat'
+import { getTagsStatusQueryOptions } from '../lib/query/tag.queryOptions'
+import { getLatestPublishedQueryOptions } from '../lib/query/articles.queryOptions'
 
 function Home(){
-    const {latest} = usePublishedContext()
-        const {stats} = useTagsContext()
+        const {data:latest} = useQuery(getLatestPublishedQueryOptions())
+        const {data:stats} = useQuery(getTagsStatusQueryOptions())
     return(
         <div className="container">
             <main className="home" >
@@ -18,7 +19,7 @@ function Home(){
                     </div>
                     <div className="content">
                         {latest?.map((article:any) => (
-                            <Card key={article.id} author={article.author} title={article.title} cover={article.cover} tags={article.tags} published={article.published} id={article.id} />
+                            <Card key={article.id} data={article} />
                         ))}
                     </div>
                 </section>

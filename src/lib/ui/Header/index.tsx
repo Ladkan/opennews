@@ -3,11 +3,12 @@ import { _LogOut, pb } from '../../utils/pb'
 import './style.scss'
 import { useState } from 'react'
 import Button from '../Button'
-import { useTagsContext } from '../../context/TagsContext'
 import { isStaff } from '../../utils'
+import { useQuery } from '@tanstack/react-query'
+import { getTagsQueryOptions } from '../../query/tag.queryOptions'
 
 function Header(){
-    const {data} = useTagsContext()
+    const {data} = useQuery(getTagsQueryOptions())
     const [IsLoggedIn, setIsLoggedIn] = useState(pb.authStore.isValid)
     const [search, setSearch] = useState('')
     const handleLogOut = async () =>{

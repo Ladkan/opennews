@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getArticleQueryOptions } from "../lib/query/articles.queryOptions"
 import { getArticleCommentsQueryOptions } from "../lib/query/comments.queryOptions"
 import '../lib/scss/article.scss'
-import { _CreateComment, _getUserName } from "../lib/utils/pb"
+import { _CreateComment } from "../lib/utils/pb"
 import Button from "../lib/ui/Button"
 import { useState } from "react"
 import Comment from '../lib/ui/Comment'
@@ -36,7 +36,7 @@ function Article(){
                         })}</span>
                 <div className="article_author">
                     <div className="avatar">
-                        {article?.expand.author.avatar ? (
+                        { article?.expand.author.avatar ? (
                             <img 
                             src={"http://127.0.0.1:8090/api/files/"+article?.expand.author.collectionId+"/"+article?.expand.author.id+"/"+article?.expand.author.avatar} 
                             alt={article?.expand.author.name} />

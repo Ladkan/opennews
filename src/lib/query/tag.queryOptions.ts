@@ -5,7 +5,7 @@ export function getTagsQueryOptions() {
     return queryOptions({
         queryKey:["tags"],
         queryFn: () => _getTags(),
-        staleTime: Infinity,
+        staleTime: 1,
         placeholderData: (prev) => prev,
     })
 }

@@ -1,21 +1,23 @@
 import Card from "../lib/ui/Card"
 import '../lib/scss/articles.scss'
 import { useParams } from "react-router-dom"
-import { useTagsContext } from "../lib/context/TagsContext"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getPublishedArticlesByTagQueryOptions } from "../lib/query/articles.queryOptions"
 import { useEffect } from "react"
+import { getTagsQueryOptions } from "../lib/query/tag.queryOptions"
 
 function ArticlesTag(){
     const queryClient = useQueryClient()
+    const {id} = useParams()
     useEffect(() => {
         queryClient.invalidateQueries({queryKey: ['articles_published_tag']})
     })
 
-    const {id} = useParams()
-    const {data} = useTagsContext()
-    const tag = data.find(i => i.name === id)
-    const {data:all} = useQuery(getPublishedArticlesByTagQueryOptions(tag.id))
+    const {data} = useQuery(getTagsQueryOptions())
+    console.log(data)
+    const tag = data?.find((i) => i.name === id)
+    console.log(tag)
+    const {data:all} = useQuery(getPublishedArticlesByTagQueryOptions(tag?.id))
 
     return(
         <section className="articles">
@@ -26,7 +28,7 @@ function ArticlesTag(){
                 </div>
                 <div className="articles_cards">
                     {all?.map((article:any) => (
-                        <Card page={true} key={article.id} author={article.author} title={article.title} cover={article.cover} tags={article.tags} published={article.published} id={article.id} />
+                        <Card key={article.id} page={true} data={article} />
                     ))}
                 </div>
             </div>
