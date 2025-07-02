@@ -119,6 +119,16 @@ export async function _DeleteArticle(id:string){
     return res
 }
 
+//Set article published date
+export async function _SetArticlePublishedDate(id:string){
+    const data = {
+        "published": Date.now()
+    }
+    console.log(data)
+    const res = await pb.collection('articles').update(id,data)
+    return res
+}
+
 //Set article status
 export async function _SetArticleStatus(id:string, status:string) {
     const data = {
@@ -153,4 +163,26 @@ export async function _CreateComment(message: string, article:string) {
 
     return res
 
+}
+
+//Admin get all articles
+export async function _AdminGetAllArticles(){
+    const res = await pb.collection('articles').getFullList({
+        expand: 'author,tags',
+        sort: '-created'
+    })
+    return res
+}
+
+//Admin create verification
+export async function _AdminCreateVerification(message:string,status:string,id:string){
+    const data = {
+        "article": id,
+        "user": pb.authStore.model?.id,
+        "type": status,
+        "comment": message
+    }
+
+    await pb.collection('verifications').create(data)
+    return true
 }

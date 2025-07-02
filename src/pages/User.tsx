@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import '../lib/scss/user.scss'
-import { _DeleteArticle, _SetArticleStatus, pb } from '../lib/utils/pb'
+import { _DeleteArticle, _SetArticlePublishedDate, _SetArticleStatus, pb } from '../lib/utils/pb'
 import { getArticlesByUserQueryOptions } from '../lib/query/articles.queryOptions'
 import Button from '../lib/ui/Button'
 import { Link } from 'react-router-dom'
@@ -33,6 +33,16 @@ function User(){
             queryClient.invalidateQueries({queryKey: ['articles_user']})
     }
 
+    const handlePublish = async (id:string,set:string,published:string) => {
+        console.log(published)
+        if(published.length < 1)
+           {
+             const res = await _SetArticlePublishedDate(id)
+           }
+
+        handleSetAction(id,set)
+    }
+
     return (
         <div className="container">
 
@@ -55,7 +65,7 @@ function User(){
                     <p>{pb.authStore.model.aboutme}</p>
                 </div>
             </div>
-            <table>
+            <table className='table-user-articles'>
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -84,7 +94,7 @@ function User(){
                         })}</td>
                         <td style={{display:"flex", gap:".25rem"}} >
                             {article.status != 'hidden' ? <Button size="sm" variant="outline" action={() => handleSetAction(article.id,'hidden')} >Hide</Button> : null}
-                            {article.status === "approved" ? <Button size="sm" variant="outline" action={() => handleSetAction(article.id,'published')} >Publish</Button> : null}
+                            {article.status === "approved" ? <Button size="sm" variant="outline" action={() => handlePublish(article.id,'published',article.published)} >Publish</Button> : null}
                             <Button size="sm" variant="outline" redirect={"/update/"+article.id} >Update</Button>
                             <Button size="sm" variant="danger" action={() => handleDeleteCard(article.id)} >Delete</Button>
                         </td>

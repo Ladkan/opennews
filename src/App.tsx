@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 //Global css
 import './lib/scss/global.scss'
 //Pages
@@ -11,17 +12,17 @@ import Articles from "./pages/Articles"
 import Create from "./pages/Create"
 import Update from "./pages/Update"
 import ArticlesTag from "./pages/ArticlesTag"
+import Article from "./pages/Article"
+import User from "./pages/User"
 //Admin Pages
 import Admin from "./pages/admin/Admin"
+import Admin_Articles from "./pages/admin/Admin_Articles"
 //Layout
 import Layout from "./lib/layout/_layout"
 import AdminLayout from "./lib/layout/_admin"
 //Protected
 import ProtectedRoute from "./lib/utils/ProtectedRoute"
 import AdminRoute from "./lib/utils/AdminRoute"
-import Article from "./pages/Article"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import User from "./pages/User"
 
 function App() {
   
@@ -57,6 +58,7 @@ function App() {
               <Route element={<AdminLayout />}>
                 <Route element={<Err_404 />} path="admin/*" />
                 <Route element={<Admin />} path="/admin" />
+                <Route element={<Admin_Articles />} path="/admin/articles" />
               </Route>
             </Route>
         </Routes>

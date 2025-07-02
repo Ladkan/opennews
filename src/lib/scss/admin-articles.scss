@@ -1,0 +1,38 @@
+.tabs{
+    padding: calc(.25rem*6);
+    display: flex;
+    gap: calc(.25rem*4);
+    flex-direction: column;
+    .tablist{
+        display: flex;
+        gap: calc(.25rem*2);
+        .tabBtn{
+            padding: calc(.25rem*2);
+            background-color: #18181b;
+            border: 1px solid #303032;
+            border-radius: calc(.5rem - 2px);
+            flex: 1 1 0%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            &:hover{
+                background-color: #27272C;
+            }
+            &.active{
+                background-color: #27272C;
+            }
+        }
+    }
+    .tabpanel{
+        &.active{
+            display: flex;
+        }
+        background-color: #18181b;
+        border: 1px solid #303032;
+        display: none;
+        flex-direction: column;
+        border-radius: calc(.5rem - 2px);
+        padding: calc(.25rem*4);
+    }
+}

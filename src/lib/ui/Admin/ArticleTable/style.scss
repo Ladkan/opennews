@@ -1,0 +1,24 @@
+.table-admin-articles{
+    width: 100%;
+    border-spacing: 0;
+    a{
+        color: white;
+        text-decoration: none;
+    }
+    thead{
+        tr{
+            background-color: #27272C;
+            th{
+                padding: 1rem;
+            }
+        }
+    }
+    tbody{
+        tr{
+            border: 1px solid #27272C;
+            td{
+                padding: calc(.25rem*4);
+            }
+        }
+    }
+}

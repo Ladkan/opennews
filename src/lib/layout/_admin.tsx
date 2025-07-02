@@ -3,6 +3,7 @@ import Sidebar from "../ui/Admin/SideBar"
 import '../scss/admin-layout.scss'
 
 function AdminLayout(){
+
     return (
         <div className="wrapper">
             <Sidebar />
