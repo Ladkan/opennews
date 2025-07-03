@@ -1,22 +1,20 @@
+import { useEffect } from "react"
 import { FirstToUpper } from "../../utils"
 import './style.scss'
 
 function InputGroup(props:any){
     
-    const {name, type, handleChange, placeholder, options, value} = props
-    
+    const {name, type, handleChange, placeholder, options, value, initVal} = props
+    useEffect(() => {
+        handleChange(initVal)
+    },[])
     if(type==="select"){
-
-        if(options){
-            handleChange(options[0].id)
-        }
-
         return(
             <div className="input-group" >
                 <label htmlFor={name}>{FirstToUpper(name)}</label>
                 <select value={value} name={name} id="" onChange={(e) => handleChange(e.target.value)}>
                     {options?.map((opt) => (
-                        <option key={opt.id} value={opt.id} >{FirstToUpper(opt.name)}</option>
+                        <option key={opt.id} value={opt.id}>{FirstToUpper(opt.name)}</option>
                     ))}
                 </select>
             </div>

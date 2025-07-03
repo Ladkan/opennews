@@ -46,7 +46,7 @@ export function getArticlesByUserQueryOptions(id:string){
     return queryOptions({
         queryKey:["articles_user"],
         queryFn: () => _GetArticlesUser(id),
-        staleTime: 6000,
+        staleTime: 5000,
         placeholderData: (prev) => prev
     })
 }

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import './style.scss'
 import { getArticleQueryOptions } from '../../../query/articles.queryOptions'
 import Button from '../../Button'
@@ -7,16 +7,18 @@ import { _AdminCreateVerification, _SetArticleStatus } from '../../../utils/pb'
 
 function ApproveModal(props:any){
     const {id} = props
+    const queryClient = useQueryClient()
     const {data:article} = useQuery(getArticleQueryOptions(id))
     const [message, setMessage] = useState('')
 
     const handleStatusAction = async (status:string) => {
-        const re = await _SetArticleStatus(id,status)
+        await _SetArticleStatus(id,status)
         const res = await _AdminCreateVerification(message,status,id)
         
         if(res){
             setMessage('')
             document.querySelector('.approvemodal')?.classList.toggle('close')
+            queryClient.invalidateQueries({queryKey: ['admin_all_articles']})
         }
     }
 

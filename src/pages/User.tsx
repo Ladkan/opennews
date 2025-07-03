@@ -5,7 +5,7 @@ import { getArticlesByUserQueryOptions } from '../lib/query/articles.queryOption
 import Button from '../lib/ui/Button'
 import { Link } from 'react-router-dom'
 import { FirstToUpper } from '../lib/utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function User(){
     const queryClient = useQueryClient()
@@ -13,6 +13,10 @@ function User(){
     const {data} = useQuery(getArticlesByUserQueryOptions(pb.authStore.record?.id))
     const delCard = document.querySelector(".delete-card")
     const [toDelete, setToDelete] = useState('')
+
+    useEffect(() => {
+        queryClient.invalidateQueries({queryKey: ['articles_user']})
+    },[])
 
     const handleSetAction = async (id:string, set:string) => {
         const res = await _SetArticleStatus(id,set)
