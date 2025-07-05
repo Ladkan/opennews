@@ -1,0 +1,9 @@
+.verifications{
+        margin-top: 1rem;
+        background-color: #18181b;
+        border: 1px solid #303032;
+        display: flex;
+        flex-direction: column;
+        border-radius: calc(.5rem - 2px);
+        padding: calc(.25rem*4);
+}

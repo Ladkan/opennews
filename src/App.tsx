@@ -23,6 +23,8 @@ import AdminLayout from "./lib/layout/_admin"
 //Protected
 import ProtectedRoute from "./lib/utils/ProtectedRoute"
 import AdminRoute from "./lib/utils/AdminRoute"
+import Admin_Verifications from "./pages/admin/Admin_Verifications"
+import Notifications from "./pages/Notifications"
 
 function App() {
   
@@ -49,6 +51,7 @@ function App() {
               <Route element={<Article />} path="/article/:id" />
               <Route element={<ProtectedRoute />} >
                 <Route element={<User />} path="/user" />
+                <Route element={<Notifications />} path="/notifications" />
                 <Route element={<Create />} path="/create" />
                 <Route element={<Update />} path="/update/:id" />
               </Route>
@@ -59,6 +62,7 @@ function App() {
                 <Route element={<Err_404 />} path="admin/*" />
                 <Route element={<Admin />} path="/admin" />
                 <Route element={<Admin_Articles />} path="/admin/articles" />
+                <Route element={<Admin_Verifications />} path="/admin/verifications" />
               </Route>
             </Route>
         </Routes>

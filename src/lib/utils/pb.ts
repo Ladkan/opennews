@@ -186,3 +186,38 @@ export async function _AdminCreateVerification(message:string,status:string,id:s
     await pb.collection('verifications').create(data)
     return true
 }
+
+//Admin get verifications
+export async function _AdminGetAllVerefications() {
+    const res = await pb.collection('verifications').getFullList({
+        sort: '-created',
+        expand: 'article,user'
+    })
+    return res
+}
+
+//Get notifications count
+export async function _GetUserNotificationCount(id:string){
+    const res = await pb.send("api/notifications/",{
+        query: {"id":id},
+    })
+    return res
+}
+
+//Get all user notifications
+export async function _GetAllUserNotifications(id:string){
+    const res = await pb.collection('notifications').getFullList({
+        filter: pb.filter("userId = {:id}",{id:id}),
+        sort: '-created',
+    })
+    return res
+}
+
+//Update notification
+export async function _updateNotifications(id:string){
+    const data ={
+        isRead: true
+    }
+    const res = await pb.collection('notifications').update(id, data)
+    return res
+}

@@ -1,16 +1,23 @@
 import { Link, NavLink } from 'react-router-dom'
 import { _LogOut, pb } from '../../utils/pb'
 import './style.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Button from '../Button'
 import { isStaff } from '../../utils'
 import { useQuery } from '@tanstack/react-query'
 import { getTagsQueryOptions } from '../../query/tag.queryOptions'
+import { getNotificationCount } from '../../query/notifications.queryOprions'
 
 function Header(){
     const {data} = useQuery(getTagsQueryOptions())
     const [IsLoggedIn, setIsLoggedIn] = useState(pb.authStore.isValid)
     const [search, setSearch] = useState('')
+    const [id,setId] = useState('')
+    useEffect(() => {
+        if(IsLoggedIn)
+            setId(pb.authStore.model.id)
+    },[])
+    const {data:notifications} = useQuery(getNotificationCount(id))
     const handleLogOut = async () =>{
         const res = await _LogOut()
         setIsLoggedIn(res)
@@ -33,6 +40,11 @@ function Header(){
                         {IsLoggedIn ? <>
                             {isStaff() ? <Button redirect="/admin" variant="ghost" size="sm" >Admin</Button> : null }
                             <Button redirect="/create" variant="ghost" size="sm" >Create Article</Button>
+                            <Button redirect="/notifications" size="sm" variant="ghost" >
+                                <i className='bx bx-bell' style={{fontSize: "1.25rem"}}> 
+                                    {notifications?.count > 0 ? <span className='count'>{notifications.count}</span> : null}
+                                </i>
+                            </Button>
                             <Button redirect="/user" variant="ghost" size="sm" >Profile</Button>
                             <Button variant='outline' size="sm" action={handleLogOut} >Log out</Button>
                         </> : <>

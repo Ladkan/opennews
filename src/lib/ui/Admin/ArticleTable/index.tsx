@@ -20,7 +20,7 @@ function ArticleTable(props:any){
     }
 
     return(
-            <table className="table-admin-articles">
+            <table className="table-admin">
                 <thead>
                     <tr>
                         <th>Title</th>

@@ -33,3 +33,14 @@ onRecordUpdateExecute((e) => {
 
     e.next();
 },"articles");  
+
+//Custom route (Notification count)
+routerAdd("GET", "/api/notifications/", (e) => {
+    let id = e.request.url.query().get("id");
+    const notifications = arrayOf(new Record);
+    $app.recordQuery('notifications').andWhere($dbx.hashExp({"userId":id})).andWhere($dbx.hashExp({"isRead":false})).all(notifications);
+
+    return e.json(200, {
+        "count": notifications.length
+    });
+},$apis.requireAuth())

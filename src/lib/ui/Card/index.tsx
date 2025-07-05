@@ -7,7 +7,7 @@ function Card(props:any){
     return(
         <Link to={"/article/"+data.id} className="card" >
             <div className="card_img">
-                <img src={data.cover} alt={data.title} />
+                <img height="200px" width="300px" src={data.cover} alt={data.title} />
             </div>
             <div className="card_content">
                 <span>{data.expand.tags.name}</span>

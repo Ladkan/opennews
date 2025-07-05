@@ -12,7 +12,6 @@ function Sidebar(){
                     <NavLink to="/admin"><i className='bx  bx-home' ></i>  Admin</NavLink>
                     <NavLink to="/admin/articles"><i className='bx  bx-article'  ></i> Articles</NavLink>
                     <NavLink to="/admin/verifications" ><i className='bx  bx-stamp'  ></i> Verifications</NavLink>
-                    <NavLink to="/admin/tags" ><i className='bx  bx-tag'  ></i>  Tags</NavLink>
                 </nav>
             </div>
             <div className="user-wrapper">

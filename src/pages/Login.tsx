@@ -3,10 +3,11 @@ import InputGroup from "../lib/ui/InputGroup"
 import { Link, Navigate } from "react-router-dom"
 import '../lib/scss/login.scss'
 import { _Login, pb } from "../lib/utils/pb"
+import { useQueryClient } from "@tanstack/react-query"
 
 
 function Login(){
-
+    const queryClient = useQueryClient()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -17,6 +18,7 @@ function Login(){
         
         const data = await _Login(email, password)
         setIsLoggin(data)
+        queryClient.invalidateQueries({queryKey: ['notifications_count']})
     }
 
     return(
